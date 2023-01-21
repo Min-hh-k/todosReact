@@ -29,11 +29,11 @@ const TodoTemple = styled.div`
     }
 `;
 
-function TodoTemplate({ children }) {
+function TodoTemplate({ children , toDos}) {
   return (
     <TodoTemple>
       <div className="border">
-        <div className="title">일정관리</div>
+        <div className="title">오늘의 할 일은?!  '{toDos.length}' 개 남았습니다</div>
         <div className="contents">{children}</div>
       </div>
     </TodoTemple>

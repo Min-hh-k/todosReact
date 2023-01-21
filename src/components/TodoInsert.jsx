@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { MdAdd } from "react-icons/md";
 
@@ -6,7 +6,7 @@ const TodoInserts = styled.div`
   .todoForm {
     display: flex;
     background: #91d8e4;
-    flex-grow: 2 1
+    flex-grow: 2 1;
   }
 
   input {
@@ -38,7 +38,7 @@ const TodoInserts = styled.div`
     align-items: center;
 
     cursor: pointer;
-    transition: 0.3s ease-in-out; 
+    transition: 0.3s ease-in-out;
     flex-grow: 1;
     font-size: 2.5rem;
 
@@ -48,12 +48,33 @@ const TodoInserts = styled.div`
   }
 `;
 
-function TodoInsert() {
+function TodoInsert({ onInsert }) {
+  const [value, setValue] = useState("");
+
+  // 값이 바뀔 때 함수 재사용
+  const onChange = useCallback((e) => {
+    setValue(e.target.value);
+  }, []);
+
+  // + 버튼 누를때 사용 함수
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      onInsert(value);
+      setValue("");
+    },
+    [onInsert, value]
+  );
+
   return (
     <>
       <TodoInserts>
-        <form className="todoForm">
-          <input placeholder="오늘의 할 일은?!" />
+        <form className="todoForm" onSubmit={onSubmit}>
+          <input
+            placeholder="입력해주세요"
+            value={value}
+            onChange={onChange}
+          />
           <button type="submit">
             <MdAdd />
           </button>

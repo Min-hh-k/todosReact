@@ -54,9 +54,9 @@ const TodoItems = styled.div`
     }
   }
 `;
-function TodoItem({ todo }) {
+function TodoItem({ todo , onRemove}) {
 
-  const {text, checked} = todo;
+  const {id ,text, checked} = todo;
   return (
     <TodoItems>
       <div className={fn("checkbox", { checked })}>
@@ -68,7 +68,7 @@ function TodoItem({ todo }) {
 
         <div className="text">{text}</div>
       </div>
-      <BiTrash className="remove" />
+      <BiTrash className="remove" onClick={() => onRemove(id)} />
     </TodoItems>
   );
 }
