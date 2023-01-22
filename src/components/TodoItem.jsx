@@ -33,6 +33,10 @@ const TodoItems = styled.div`
   .text {
     margin-left: 0.5rem;
     flex: 1;
+
+    :hover {
+      color: #251749;
+    }
   }
 
   .checked {
@@ -59,12 +63,20 @@ const TodoItems = styled.div`
     color: gray;
     margin-right: 1rem;
     cursor: pointer;
+
+    :hover {
+      color: #263159;
+    }
   }
 
   .correct_okay {
     color: gray;
     margin-right: 1rem;
     cursor: pointer;
+
+    :hover {
+      color: #263159;
+    }
   }
 
   .edited_input {
