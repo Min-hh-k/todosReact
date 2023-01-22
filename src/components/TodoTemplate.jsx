@@ -24,16 +24,16 @@ const TodoTemple = styled.div`
     background: #bfeaf5;
   }
 
-  @media  (max-width: 487px){
+  @media (max-width: 500px) {
     width: 100%;
-    }
+  }
 `;
 
-function TodoTemplate({ children , toDos}) {
+function TodoTemplate({ children, toDos }) {
   return (
     <TodoTemple>
       <div className="border">
-        <div className="title">오늘의 할 일은?!  '{toDos.length}' 개 남았습니다</div>
+        <div className="title">오늘의 할 일은?! '{toDos.length}' 개 입니다</div>
         <div className="contents">{children}</div>
       </div>
     </TodoTemple>

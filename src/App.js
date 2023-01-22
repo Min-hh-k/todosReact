@@ -59,6 +59,8 @@ function App() {
     [toDos],
   );
 
+  // 수정 기능은 TodoItem.jsx ㄱㄱ
+
   return (
     <>
       <TodoTemplate toDos={toDos}>

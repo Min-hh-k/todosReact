@@ -66,6 +66,17 @@ const TodoItems = styled.div`
     margin-right: 1rem;
     cursor: pointer;
   }
+
+  .edited_input {
+    width: 75%;
+    border: none;
+    font-size: 1.4rem;
+
+    :focus {
+      outline: none;
+      background: none;
+    }
+  }
 `;
 function TodoItem({ todo, toDos, onRemove, onToggle, setToDos }) {
   const { id, text, checked } = todo;
@@ -92,7 +103,7 @@ function TodoItem({ todo, toDos, onRemove, onToggle, setToDos }) {
 
       text: item.id === id ? newText : item.text,
     }));
-    
+
     // console.log(nextTodoList);
     // console.log(newText);
 
@@ -121,6 +132,7 @@ function TodoItem({ todo, toDos, onRemove, onToggle, setToDos }) {
         {/* 수정 모드  on || off  */}
         {edited ? (
           <input
+            className="edited_input"
             type="text"
             value={newText}
             ref={editInputRef}
