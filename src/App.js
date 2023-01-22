@@ -63,7 +63,7 @@ function App() {
     <>
       <TodoTemplate toDos={toDos}>
         <TodoInsert onInsert={onInsert} />
-        <TodoList toDos={toDos} onRemove={onRemove} onToggle={onToggle} />
+        <TodoList toDos={toDos} setToDos={setToDos} onRemove={onRemove} onToggle={onToggle} />
       </TodoTemplate>
     </>
   );
