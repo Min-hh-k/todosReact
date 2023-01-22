@@ -7,10 +7,10 @@ const TodoLists = styled.div`
   max-height: 100vh;
   overflow-y: auto; ;
 `;
-function TodoList({toDos, onRemove}) {
+function TodoList({toDos, onRemove, onToggle}) {
   return (
     <TodoLists>
-    {toDos.map(el => <TodoItem todo={el} key={el.id} onRemove={onRemove} />)}
+    {toDos.map(el => <TodoItem todo={el} key={el.id} onRemove={onRemove} onToggle={onToggle} />)}
     </TodoLists>
   );
 }

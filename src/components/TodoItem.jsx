@@ -4,7 +4,7 @@ import {
   MdOutlineCheckBoxOutlineBlank,
   MdOutlineCheckBox,
 } from "react-icons/md";
-import { BiTrash } from "react-icons/bi";
+import { BiTrash, BiPencil } from "react-icons/bi";
 import fn from "classnames";
 
 const TodoItems = styled.div`
@@ -36,9 +36,9 @@ const TodoItems = styled.div`
 
   .checked {
     svg {
-      color: #7B8FA8;
+      color: #7b8fa8;
     }
-    color: #7B8FA1;
+    color: #7b8fa1;
     text-decoration: line-through;
   }
 
@@ -53,13 +53,18 @@ const TodoItems = styled.div`
       color: red;
     }
   }
-`;
-function TodoItem({ todo , onRemove}) {
 
-  const {id ,text, checked} = todo;
+  .correct {
+    color: gray;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+`;
+function TodoItem({ todo, onRemove, onToggle }) {
+  const { id, text, checked } = todo;
   return (
     <TodoItems>
-      <div className={fn("checkbox", { checked })}>
+      <div className={fn("checkbox", { checked })} onClick={() => onToggle(id)}>
         {todo.checked ? (
           <MdOutlineCheckBox />
         ) : (
@@ -68,6 +73,8 @@ function TodoItem({ todo , onRemove}) {
 
         <div className="text">{text}</div>
       </div>
+      {/* 수정 아이콘 */}
+      <BiPencil className="correct" />
       <BiTrash className="remove" onClick={() => onRemove(id)} />
     </TodoItems>
   );

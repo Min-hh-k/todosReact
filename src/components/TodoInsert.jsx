@@ -59,9 +59,14 @@ function TodoInsert({ onInsert }) {
   // + 버튼 누를때 사용 함수
   const onSubmit = useCallback(
     (e) => {
-      e.preventDefault();
-      onInsert(value);
-      setValue("");
+      if (!value) {
+        e.preventDefault();
+        alert("아무것도 없음, 입력하세요!");
+      } else {
+        e.preventDefault();
+        onInsert(value);
+        setValue("");
+      }
     },
     [onInsert, value]
   );
@@ -70,11 +75,7 @@ function TodoInsert({ onInsert }) {
     <>
       <TodoInserts>
         <form className="todoForm" onSubmit={onSubmit}>
-          <input
-            placeholder="입력해주세요"
-            value={value}
-            onChange={onChange}
-          />
+          <input placeholder="입력해주세요" value={value} onChange={onChange} />
           <button type="submit">
             <MdAdd />
           </button>
