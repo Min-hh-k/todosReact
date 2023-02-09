@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
 import TodoInsert from "./components/TodoInsert";
 import TodoList from "./components/TodoList";
@@ -8,20 +8,21 @@ function App() {
   const [toDos, setToDos] = useState([
     {
       id: 1,
-      text: "인강듣기",
-      checked: false,
-    },
-    {
-      id: 2,
-      text: "복습하기",
-      checked: true,
-    },
-    {
-      id: 3,
-      text: "운동하기",
-      checked: true,
+      text: "",
+      checked: Boolean,
     },
   ]);
+
+  //! json server data 받아오기
+  useEffect(() => {
+    fetch("http://localhost:3001/toDos")
+      .then((res) => res.json())
+      .then((data) => {
+        setToDos(data);
+      })
+      .catch((err) => console.log(Error, err));
+  }, []);
+
   // id 3 까지 기본 값,, 4 부터
   const nextId = useRef(4);
 
@@ -49,14 +50,14 @@ function App() {
 
   // 체크
   const onToggle = useCallback(
-    id => {
+    (id) => {
       setToDos(
-        toDos.map(todo =>
-          todo.id === id ? { ...todo, checked: !todo.checked } : todo,
-        ),
+        toDos.map((todo) =>
+          todo.id === id ? { ...todo, checked: !todo.checked } : todo
+        )
       );
     },
-    [toDos],
+    [toDos]
   );
 
   // 수정 기능은 TodoItem.jsx ㄱㄱ
@@ -65,7 +66,12 @@ function App() {
     <>
       <TodoTemplate toDos={toDos}>
         <TodoInsert onInsert={onInsert} />
-        <TodoList toDos={toDos} setToDos={setToDos} onRemove={onRemove} onToggle={onToggle} />
+        <TodoList
+          toDos={toDos}
+          setToDos={setToDos}
+          onRemove={onRemove}
+          onToggle={onToggle}
+        />
       </TodoTemplate>
     </>
   );

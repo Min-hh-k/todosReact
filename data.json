@@ -1,0 +1,29 @@
+{
+  "toDos": [
+    {
+      "id": 1,
+      "text": "인강듣기",
+      "checked": false
+    },
+    {
+      "id": 2,
+      "text": "복습하기",
+      "checked": false
+    },
+    {
+      "id": 3,
+      "text": "운동하기",
+      "checked": true
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
