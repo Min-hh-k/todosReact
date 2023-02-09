@@ -26,7 +26,7 @@ function App() {
   // id 3 까지 기본 값,, 4 부터
   const nextId = useRef(4);
 
-  // 등록
+  //! JSON 서버에 투두 등록
   const onInsert = useCallback(
     (text) => {
       const todo = {
@@ -34,8 +34,23 @@ function App() {
         text,
         checked: false,
       };
-      setToDos(toDos.concat(todo));
-      nextId.current += 1;
+
+      fetch("http://localhost:3001/toDos", {
+        method: "POST",
+        body: JSON.stringify(todo),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setToDos(toDos.concat(data));
+          nextId.current += 1;
+        })
+        .catch((err) => console.log(Error, err));
+
+      // setToDos(toDos.concat(todo));
+      // nextId.current += 1;
     },
     [toDos]
   );
@@ -43,7 +58,21 @@ function App() {
   // 삭제
   const onRemove = useCallback(
     (id) => {
-      setToDos(toDos.filter((todo) => todo.id !== id));
+      fetch(`http://localhost:3001/toDos/${id}`, {
+        method: "DELETE",
+        body: JSON.stringify(),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log(data)
+          setToDos(toDos.filter((todo) => todo.id !== id));
+        })
+        .catch((err) => console.log(Error, err));
+
+      // setToDos(toDos.filter((todo) => todo.id !== id));
     },
     [toDos]
   );
@@ -51,11 +80,33 @@ function App() {
   // 체크
   const onToggle = useCallback(
     (id) => {
-      setToDos(
-        toDos.map((todo) =>
-          todo.id === id ? { ...todo, checked: !todo.checked } : todo
-        )
-      );
+      const checked = {
+        checked: true,
+      };
+
+      fetch(`http://localhost:3001/toDos/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify(checked),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setToDos(
+            toDos.map((todo) =>
+              todo.id === id ? { ...todo, checked: !todo.checked } : todo
+            )
+          );
+        })
+        .catch((err) => console.log(Error, err));
+
+      // setToDos(
+      //   toDos.map((todo) =>
+      //     todo.id === id ? { ...todo, checked: !todo.checked } : todo
+      //   )
+      // );
     },
     [toDos]
   );
